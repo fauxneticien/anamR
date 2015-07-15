@@ -1,0 +1,14 @@
+Package: anamR
+Title: Helper Functions for KDB
+Version: 0.0.0.9000
+Authors@R: person("Nay", "San", email = "nay.san@mq.edu.au", role = c("aut", "cre"))
+Description: Read, write and query functions for the Kaytetye database
+Depends: R (>= 3.2.1)
+License: MIT
+LazyData: true
+Imports:
+	dplyr,
+	foreach,
+	purrr,
+	stringr,
+	zoo
