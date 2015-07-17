@@ -4,7 +4,8 @@
 \alias{read.KDB}
 \title{Read in data from KDB.txt}
 \usage{
-read.KDB(file_loc = "~/Documents/GitHub/KDB/KDB.txt", process_data = TRUE)
+read.KDB(file_loc = "~/Documents/GitHub/KDB/KDB.txt", process_data = TRUE,
+  ...)
 }
 \arguments{
 \item{file_loc}{Specify where KDB.txt is, this defaults to ~/Documents/GitHub/KDB/KDB.txt}
@@ -17,5 +18,4 @@ read.KDB()
 KDB <- read.KDB()
 read.KDB("~/Desktop/KDB_copy.txt")
 }
-\keyword{cats}
 

@@ -2,4 +2,8 @@
 
 export(process.KDB)
 export(read.KDB)
-importFrom(magrittr,"%>%")
+export(write.KDB)
+import(dplyr)
+importFrom(stringr,str_extract)
+importFrom(stringr,str_replace)
+importFrom(zoo,na.locf)

@@ -22,9 +22,11 @@ process.KDB(KDB, remove_initial_spaces = TRUE, extract_tags = TRUE,
 This function performs a number of cleaning and organisation routines to data from KDB.txt. Indiciate whether a routine should or not be performed by adjusting the TRUE/FALSE flags below.
 }
 \examples{
-read.KDB()
-KDB <- read.KDB()
-read.KDB("~/Desktop/KDB_copy.txt")
+process.KDB(read.KDB())
+
+KDB <- read.KDB(process_data = FALSE)
+KDB <- process.KDB(KDB)
+
+KDB <- process.KDB(KDB, remove_emptylines = TRUE)
 }
-\keyword{cats}
 
