@@ -12,13 +12,17 @@ write.KDB <- function(file_loc, df = KDB) {
 
     df$spaces <- sapply(df$indent, function(x) { paste0(rep(" ", x), collapse = '') })
 
+    df$only_spaces <- nchar(str_replace_all(df$content, "\\s+", ""))
+    df[which(df$only_spaces == 0 & is.na(df$tag)), 6] <- ""
+
     df$content <- paste0(df$spaces,
                          "\\",
                          df$tag,
                          " ",
                          df$content)
 
-    df$content <- str_replace(df$content, "\\NA ", "")
+    df$content <- str_replace(df$content, "([a-z]+) $", "\\1")
+    df$content <- str_replace(df$content, "\\\\NA ", "")
 
     writeLines(df$content, file_loc)
 
