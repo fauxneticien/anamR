@@ -48,7 +48,7 @@ process.KDB <- function(KDB,
             select(lineno) %>%
             mutate(lx_id = 1:n()) %>%
             left_join(KDB, ., by = "lineno") %>%
-            filter(tag != "sk") %>%
+            # filter(tag != "sk") %>%
             select(lineno, lx_id) %>%
             mutate(lx_id = na.locf(lx_id,
                                    na.rm = FALSE)) %>%
