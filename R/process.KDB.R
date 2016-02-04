@@ -44,7 +44,7 @@ process.KDB <- function(KDB,
     }
 
     if(make_lx_ids == TRUE) {
-        KDB <- filter(KDB, tag == "lx") %>%
+        KDB <- filter(KDB, grepl("lx", tag)) %>%
             select(lineno) %>%
             mutate(lx_id = 1:n()) %>%
             left_join(KDB, ., by = "lineno") %>%
@@ -55,6 +55,9 @@ process.KDB <- function(KDB,
             left_join(KDB, ., by = "lineno")
 
     }
+  
+    n_ids <- length(KDB[which(KDB$tag == "sk"), "lx_id"])
+    KDB[which(KDB$tag == "sk"), "lx_id"] <- 1:n_ids
 
     KDB
 }
