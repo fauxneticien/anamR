@@ -46,7 +46,8 @@ process.KDB <- function(KDB,
     if(make_lx_ids == TRUE) {
         KDB <- KDB %>%
             mutate(lx_id = ifelse(tag == "lx", lead(content), NA),
-                   lx_id = na.locf(lx_id, na.rm = FALSE))
+                   lx_id = na.locf(lx_id, na.rm = FALSE),
+                   lx_id = as.integer(lx_id))
 
 #         This is legacy code when lx_ids had to be assigned
 #         lx_ids are now hard-coded into KDB.txt
