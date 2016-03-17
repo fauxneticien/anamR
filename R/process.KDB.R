@@ -33,31 +33,38 @@ process.KDB <- function(KDB,
 
     if(extract_tags == TRUE) {
         KDB <- mutate(KDB,
-                      tag = str_extract(content, "\\\\[a-z]+"),
+                      tag = str_extract(content, "\\\\[a-z|\\_]+"),
                       tag = str_replace(tag, "\\\\", "")) %>%
             select(lineno, indent, tag, content)
     }
 
     if(remove_initial_spaces == TRUE) {
         KDB <- mutate(KDB,
-                      content = str_replace(content, "^\\s*\\\\[a-z]+\\s?", ""))
+                      content = str_replace(content, "^\\s*\\\\[a-z|\\_]+\\s?", ""))
     }
 
     if(make_lx_ids == TRUE) {
-        KDB <- filter(KDB, grepl("lx", tag)) %>%
-            select(lineno) %>%
-            mutate(lx_id = 1:n()) %>%
-            left_join(KDB, ., by = "lineno") %>%
-            # filter(tag != "sk") %>%
-            select(lineno, lx_id) %>%
-            mutate(lx_id = na.locf(lx_id,
-                                   na.rm = FALSE)) %>%
-            left_join(KDB, ., by = "lineno")
+        KDB <- KDB %>%
+            mutate(lx_id = ifelse(tag == "lx", lead(content), NA),
+                   lx_id = na.locf(lx_id, na.rm = FALSE))
 
+#         This is legacy code when lx_ids had to be assigned
+#         lx_ids are now hard-coded into KDB.txt
+
+#         KDB <- filter(KDB, grepl("lx", tag)) %>%
+#             select(lineno) %>%
+#             mutate(lx_id = 1:n()) %>%
+#             left_join(KDB, ., by = "lineno") %>%
+#             # filter(tag != "sk") %>%
+#             select(lineno, lx_id) %>%
+#             mutate(lx_id = na.locf(lx_id,
+#                                    na.rm = FALSE)) %>%
+#             left_join(KDB, ., by = "lineno")
     }
-  
-    n_ids <- length(KDB[which(KDB$tag == "sk"), "lx_id"])
-    KDB[which(KDB$tag == "sk"), "lx_id"] <- 1:n_ids
+
+    # This is legacy code. sk is not the main entry anymore
+    # n_ids <- length(KDB[which(KDB$tag == "sk"), "lx_id"])
+    # KDB[which(KDB$tag == "sk"), "lx_id"] <- 1:n_ids
 
     KDB
 }
