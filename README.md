@@ -37,7 +37,7 @@ The function `read.KDB()` processes this text file into a table:
 
 ### Get part of speech (ps tag) for each headword (lx, or lx_id)
 
-```
+```R
 library(anamR)
 library(tidyr)
 
@@ -66,7 +66,7 @@ First 10 headwords and their parts of speech:
 
 ### Plot distribution of parts of speech in dictionary
 
-```
+```R
 library(ggplot2)
 
 ps_df %>%
